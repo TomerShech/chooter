@@ -1,0 +1,9 @@
+{
+    "C_Cpp.default.includePath": [
+        "./inc",
+        "/usr/local/include"
+    ],
+    "files.associations": {
+        "*.h": "c"
+    }
+}
