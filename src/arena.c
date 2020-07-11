@@ -110,20 +110,6 @@ static void perform_player(State *S, Arena *A) {
     }
 }
 
-static void bound_player(void) {
-    if (player->rect.x < 0) {
-        player->rect.x = 0;
-    } else if (player->rect.x > WIN_WIDTH - player->rect.w) {
-        player->rect.x = WIN_WIDTH - player->rect.w;
-    }
-
-    if (player->rect.y < 0) {
-        player->rect.y = 0;
-    } else if (player->rect.y > WIN_HEIGHT - player->rect.h) {
-        player->rect.y = WIN_HEIGHT - player->rect.h;
-    }
-}
-
 static void perform_bullets(Arena *A) {
     for (Thing *prev = &A->bullet_head, *b = A->bullet_head.next; b; prev = b, b = b->next) {
         b->rect.x += b->delta.x;
@@ -186,25 +172,15 @@ static void perform_enemies(Arena *A) {
 
 static void perform_pods(Arena *A) {
     for (Thing *prev = &A->pod_head, *pod = A->pod_head.next; pod; prev = pod, pod = pod->next) {
-        if (pod->rect.x < 0) {
-            pod->rect.x = 0;
+        if (pod->rect.x < 0 || pod->rect.x + pod->rect.w > WIN_WIDTH) {
             pod->delta.x = -pod->delta.x;
         }
 
-        if (pod->rect.x + pod->rect.w > WIN_WIDTH) {
-            pod->rect.x = WIN_WIDTH - pod->rect.w;
-            pod->delta.x = -pod->delta.x;
-        }
-
-        if (pod->rect.y < 0) {
-            pod->rect.y = 0;
+        if (pod->rect.y < 0 || pod->rect.y + pod->rect.h > WIN_HEIGHT) {
             pod->delta.y = -pod->delta.y;
         }
 
-        if (pod->rect.y + pod->rect.h > WIN_HEIGHT) {
-            pod->rect.y = WIN_HEIGHT - pod->rect.h;
-            pod->delta.y = -pod->delta.y;
-        }
+        bound_thing(pod);
 
         pod->rect.x += pod->delta.x;
         pod->rect.y += pod->delta.y;
@@ -271,7 +247,7 @@ static void logic(State *S, Arena *A) {
     }
 
     if (player) {
-        bound_player();
+        bound_thing(player);
     }
 
     if (player == NULL && --arena_reset_timer < 1) {

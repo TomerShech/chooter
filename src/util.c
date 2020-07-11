@@ -12,6 +12,20 @@ void set_thing_size(Thing *T) {
     T->rect.h = h;
 }
 
+void bound_thing(Thing *T) {
+    if (T->rect.x < 0) {
+        T->rect.x = 0;
+    } else if (T->rect.x > WIN_WIDTH - T->rect.w) {
+        T->rect.x = WIN_WIDTH - T->rect.w;
+    }
+
+    if (T->rect.y < 0) {
+        T->rect.y = 0;
+    } else if (T->rect.y > WIN_HEIGHT - T->rect.h) {
+        T->rect.y = WIN_HEIGHT - T->rect.h;
+    }
+}
+
 const char *get_res_path(void) {
     // This will hold the base resource path: chooter/res/.
     // It has static lifetime so only one call to SDL_GetBasePath() is needed.

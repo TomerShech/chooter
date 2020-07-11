@@ -8,6 +8,19 @@ static int cursor_blink, timeout;
 static HighScore *new_high_score;
 static const SDL_Color YELLOW = {.r = 255, .g = 255, .b = 0};
 
+static bool write_score_to_file(const int score) {
+    FILE *fp = fopen(".high_score", "w");
+
+    if (fp == NULL) {
+        return false;
+    }
+
+    fprintf(fp, "%d\n", score);
+    fclose(fp);
+
+    return true;
+}
+
 static void handle_name_input(State *S) {
     size_t new_hs_name_len = strlen(new_high_score->player_name);
 
@@ -106,6 +119,10 @@ static void render(State *S, Arena *A) {
     }
 }
 
+static int high_score_cmp(const void *a, const void *b) {
+    return (*(HighScore *)b).score - (*(HighScore *)a).score;
+}
+
 void high_score_table_init(void) {
     memset(highscores, 0, HIGH_SCORES_COUNT);
 
@@ -125,10 +142,6 @@ void high_score_init(State *S) {
     timeout = FPS * 5;
 }
 
-static int high_score_cmp(const void *a, const void *b) {
-    return (*(HighScore *)b).score - (*(HighScore *)a).score;
-}
-
 void add_high_score(int score) {
     HighScore new[HIGH_SCORES_COUNT + 1];
 
@@ -139,6 +152,10 @@ void add_high_score(int score) {
 
     new[HIGH_SCORES_COUNT].score = score;
     new[HIGH_SCORES_COUNT].recent = true;
+
+    if (!write_score_to_file(score)) {
+        fputs("could not save high score to file\n", stderr);
+    }
 
     qsort(new, HIGH_SCORES_COUNT + 1, sizeof(HighScore), high_score_cmp);
 
