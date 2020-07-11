@@ -14,7 +14,7 @@ SDL_LDFLAGS := $(shell pkg-config --libs sdl2 SDL2_mixer SDL2_image)
 
 # CPP here stands for C preprocessor and not "C++"
 CPPFLAGS := -I$(INC_DIR)
-CFLAGS   := -Wall -Wextra -pedantic -std=c99 $(SDL_CFLAGS) 
+CFLAGS   := -Wall -Wextra -pedantic -std=c99 $(SDL_CFLAGS)
 LDFLAGS  := $(SDL_LDFLAGS)
 
 .PHONY: all clean
