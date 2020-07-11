@@ -14,7 +14,7 @@ static void handle_name_input(State *S) {
     for (size_t i = 0; S->input_buf[i]; ++i) {
         char c = toupper(S->input_buf[i]);
 
-        if (new_hs_name_len < HIGH_SCORE_NAME_LEN_MAX - 1 && isupper(c)) {
+        if (new_hs_name_len < HIGH_SCORE_NAME_LEN_MAX - 1 && (isupper(c) || c == ' ')) {
             new_high_score->player_name[new_hs_name_len++] = c;
         }
     }
@@ -47,7 +47,6 @@ static void logic(State *S, Arena *A) {
         if (--timeout < 1) {
             title_init(S);
         }
-
         if (S->key & GK_FIRE) {
             arena_init(S, A);
         }
