@@ -127,6 +127,7 @@ void high_score_table_init(void) {
     memset(highscores, 0, HIGH_SCORES_COUNT);
 
     for (int i = 0, s = HIGH_SCORES_COUNT * 10; i < HIGH_SCORES_COUNT; ++i, s -= 10) {
+        highscores[i].recent = false;
         highscores[i].score = s;
         strncpy_term(highscores[i].player_name, "NO NAME", HIGH_SCORE_NAME_LEN_MAX);
     }
