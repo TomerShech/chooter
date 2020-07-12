@@ -2,7 +2,7 @@
 
 A cute little 2D space shooter game written in C using the [SDL](https://www.libsdl.org "SDL's Homepage") library
 
-![Chooter Showcase](res/chooter.gif)
+![Chooter Showcase](https://media.giphy.com/media/Xzp6Gv5HxUjzT6Se5J/giphy.gif)
 
 ## Dependencies
 
