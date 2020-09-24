@@ -1,7 +1,8 @@
 .high_score
+bin/
 
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,c,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,c,macos
+# Created by https://www.toptal.com/developers/gitignore/api/linux,premake-gmake,macos,c,vim
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,premake-gmake,macos,c,vim
 
 ### C ###
 # Prerequisites
@@ -12,7 +13,6 @@
 *.ko
 *.obj
 *.elf
-obj/
 
 # Linker output
 *.ilk
@@ -42,7 +42,6 @@ obj/
 *.i*86
 *.x86_64
 *.hex
-bin/
 
 # Debug files
 *.dSYM/
@@ -58,6 +57,21 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
 
 ### macOS ###
 # General
@@ -87,16 +101,29 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
+### premake-gmake ###
+Makefile
+*.make
+obj/
 
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,c,macos
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+# End of https://www.toptal.com/developers/gitignore/api/linux,premake-gmake,macos,c,vim
